@@ -226,6 +226,14 @@
           return ADDRESS_URL_PREFIX+'/address/'+addr;
     }
 
+    function create_qr_code_img_tag(data, size) {
+        var qrCode = qrcode(size, 'M');
+        data = data.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
+        qrCode.addData(data);
+        qrCode.make();
+        return qrCode.createImgTag(4)
+    }
+
     function gen_update() {
 
         var eckey = gen_eckey;
@@ -258,13 +266,8 @@
         var der = Crypto.util.bytesToHex(getDER(eckey, compressed));
         $('#der').val(der);
 
-        var qrCode = qrcode(3, 'M');
-        var text = $('#addr').val();
-        text = text.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
-        qrCode.addData(text);
-        qrCode.make();
-
-        $('#genAddrQR').html(qrCode.createImgTag(4));
+        $('#genAddrQR').html(create_qr_code_img_tag($('#addr').val(), 3));
+        $('#genAddrPrivateQR').html(create_qr_code_img_tag($('#sec').val(), 4));
         $('#genAddrURL').attr('href', getAddressURL(addr));
         $('#genAddrURL').attr('title', addr);
     }
