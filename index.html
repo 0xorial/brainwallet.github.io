@@ -20,6 +20,7 @@
     <script src="js/tx.js"></script>
     <script src="js/bitcoinsig.js"></script>
     <script src="js/secure-random.js"></script>
+    <script src="js/dict.js"></script>
     <script src="js/brainwallet.js"></script>
   </head>
   <body onclick="rng_seed_time();" onkeypress="rng_seed_time();">
@@ -101,10 +102,16 @@
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="pass">Passphrase</label>
-                <div class="col-lg-10 controls">
+                <div class="col-lg-8 controls">
                   <div class="input-append">
                     <input class="form-control" id="pass" placeholder="Long original sentence that does not appear in any song or literature. Single SHA256 used as Private Key." type="text" />
                   </div>
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="random-words-count" placeholder="random words length" type="text" value="10" />
+                </div>
+                <div class="col-lg-1">
+                    <div class="btn btn-default" id="generate-pass">Generate</div>
                 </div>
               </div>
               <div class="form-group">
@@ -135,8 +142,12 @@
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="genAddrQR">Address QR Code</label>
-                <div class="col-lg-10 controls">
+                <div class="col-lg-4 controls">
                   <a href="#" id="genAddrURL" target="_blank" title="Click to view address history (external link)"><span id="genAddrQR"></span></a>
+                </div>
+                <label class="col-lg-2 control-label" for="genAddrPrivate">Private Key QR Code</label>
+                <div class="col-lg-4 controls">
+                  <span id="genAddrPrivateQR"></span>
                 </div>
               </div>
               <div class="form-group">

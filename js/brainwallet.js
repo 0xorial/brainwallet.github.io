@@ -34,7 +34,7 @@
         else
             return [0x80|2, len >> 8, len & 0xff];
     }
-    
+
     encode_id = function(id, s) {
         var len = encode_length(s.length);
         return [id].concat(len).concat(s);
@@ -111,7 +111,7 @@
                     encode_integer(1)
                 )
             ),
-            encode_constructed(1, 
+            encode_constructed(1,
                 encode_bitstring([0].concat(encoded_pub))
             )
         );
@@ -304,7 +304,7 @@
 
         var sec = $('#sec').val();
 
-        try { 
+        try {
             var res = parseBase58Check(sec);
             var version = res[0];
             var payload = res[1];
@@ -344,6 +344,11 @@
         // chosen by fair dice roll
         // guaranted to be random
         $('#from_pass').button('toggle');
+        var genRandomPassLength = parseInt($('#random-words-count').val())
+        var suggest = [];
+        for (var i=0; i < genRandomPassLength; i++)
+            suggest.push(words[Math.floor(Math.random() * words.length)]);
+        $('#pass').val(suggest.join(' '));
         $('#pass').focus();
         gen_from = 'pass';
         update_gen();
@@ -417,7 +422,7 @@
         if (min_words>b.length)
             return false;
         for (var i = 0; i < b.length; i++) {
-            if (a.indexOf(b[i].toLowerCase()) == -1 
+            if (a.indexOf(b[i].toLowerCase()) == -1
                 && a.indexOf(b[i].toUpperCase()) == -1)
             return false;
         }
@@ -981,7 +986,7 @@
             $.getJSON(url, function(data) {
               txParseUnspent ( JSON.stringify(data, null, 2) );
             }).fail(function(jqxhr, textStatus, error) {
-              alert( typeof(jqxhr.responseText)=='undefined' ? jqxhr.statusText 
+              alert( typeof(jqxhr.responseText)=='undefined' ? jqxhr.statusText
                 : ( jqxhr.responseText!='' ? jqxhr.responseText : 'No data, probably Access-Control-Allow-Origin error.') );
             });
 
@@ -1087,7 +1092,7 @@
         var fee = parseFloat('0'+$('#txFee').val());
 
         try {
-            var res = parseBase58Check(sec); 
+            var res = parseBase58Check(sec);
             var version = res[0];
             var payload = res[1];
         } catch (err) {
@@ -1253,7 +1258,7 @@
         var eckey = null;
         var compressed = false;
         try {
-            var res = parseBase58Check(sec); 
+            var res = parseBase58Check(sec);
             var privkey_version = res[0];
             var payload = res[1];
             if (payload.length > 32) {
@@ -1543,6 +1548,8 @@
         $('#gen_comp label input').on('change', genOnChangeCompressed);
 
         genRandomPass();
+
+        $('#generate-pass').click(genRandomPass);
 
         // chains
 
