@@ -136,17 +136,6 @@
         }
     }
 
-    function genRandom() {
-        $('#pass').val('');
-        $('#hash').focus();
-        gen_from = 'hash';
-        $('#from_hash').click();
-        update_gen();
-        var bytes = secureRandom(32);
-        $('#hash').val(Crypto.util.bytesToHex(bytes));
-        generate();
-    }
-
     function update_gen() {
         setErrorState($('#hash'), false);
         setErrorState($('#sec'), false);
@@ -1544,8 +1533,6 @@
         onInput('#pass', onChangePass);
         onInput('#hash', onChangeHash);
         onInput('#sec', genOnChangePrivKey);
-
-        $('#genRandom').click(genRandom);
 
         $('#gen_from label input').on('change', update_gen_from );
         $('#gen_comp label input').on('change', genOnChangeCompressed);
